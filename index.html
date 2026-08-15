@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bonafide Certificate Generator - Barsoi Public School</title>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Great+Vibes&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
     :root {
         --primary: #0f2b48;
@@ -107,14 +107,15 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 350px;
-        height: 350px;
+        width: 380px;
+        height: 380px;
         background-image: url('https://drive.google.com/thumbnail?id=18zW3xG-nsyBUrn2FdLLIzoUPaSZVura3&sz=w500');
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
-        opacity: 0.06;
+        opacity: 0.08;
         pointer-events: none;
+        z-index: 0;
     }
 
     .cert-header {
@@ -123,6 +124,8 @@
         justify-content: space-between;
         border-bottom: 2px double var(--gold);
         padding-bottom: 15px;
+        position: relative;
+        z-index: 1;
     }
     .cert-logo { width: 90px; height: auto; }
     .header-text { text-align: center; flex: 1; padding: 0 10px; }
@@ -149,7 +152,7 @@
         line-height: 1.3;
     }
 
-    .cert-title-box { text-align: center; margin: 30px 0 25px 0; }
+    .cert-title-box { text-align: center; margin: 35px 0 30px 0; position: relative; z-index: 1; }
     .cert-title {
         font-family: 'Cinzel', serif;
         color: var(--primary);
@@ -178,32 +181,8 @@
         font-size: 20px;
     }
 
-    /* Golden Badge Seal */
-    .golden-seal {
-        position: absolute;
-        bottom: 80px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90px;
-        height: 90px;
-        background: radial-gradient(circle, #ffe89c 0%, #c59b27 100%);
-        border-radius: 50%;
-        border: 2px dashed #7a5c0d;
-        box-shadow: 0 0 10px rgba(0,0,0,0.15);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-size: 9px;
-        font-weight: bold;
-        color: #4a3805;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        z-index: 2;
-    }
-
     .cert-footer {
-        margin-top: 60px;
+        margin-top: 80px;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
@@ -219,10 +198,15 @@
     .btn-print { padding: 12px 30px; background: #008000; color: white; border: none; cursor: pointer; font-weight: bold; border-radius: 5px; font-size: 15px; }
     .btn-back { padding: 12px 25px; background: #666; color: white; border: none; margin-left: 10px; cursor: pointer; border-radius: 5px; font-size: 15px; }
 
+    /* Print & PDF Export Fixes */
     @media print {
         @page {
             size: letter;
             margin: 8mm 12mm 8mm 12mm;
+        }
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
         }
         body { background-color: #fff !important; padding: 0 !important; }
         .top-header, #form-container, .action-buttons { display: none !important; }
@@ -306,10 +290,6 @@
                 His/Her Date of Birth as recorded in the General Register of the school is 
                 <span id="out-dob" class="fill-data"></span>.<br><br>
                 To the best of my knowledge, he/she bears a good moral character.
-            </div>
-
-            <div class="golden-seal">
-                Official<br>School<br>Seal
             </div>
 
             <div class="cert-footer">
