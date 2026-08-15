@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bonafide Certificate Generator - Barsoi Public School</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    :root {
+        --primary-color: #3e7d58;
+        --secondary-color: #FFA500;
+        --dark-bg: #008000;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--dark-bg);
+        margin: 0;
+        padding: 20px 0;
+        color: #333;
+    }
+
+    /* Top Header */
+    .top-header {
+        background-color: var(--secondary-color);
+        color: #000;
+        text-align: center;
+        padding: 15px;
+        border-bottom: 3px solid #0056b3;
+        margin-top: -20px;
+        margin-bottom: 30px;
+    }
+    .top-header h1 { margin: 0; font-size: 26px; }
+    .top-header p { margin: 5px 0 0 0; font-size: 14px; font-weight: bold; }
+
+    /* Input Form Styles */
+    #form-container {
+        max-width: 550px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 25px 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    #form-container h2 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 8px;
+    }
+    .input-group {
+        margin-bottom: 15px;
+    }
+    .input-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+    .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+    .input-group input:focus {
+        border-color: var(--primary-color);
+        outline: none;
+    }
+    .btn-submit {
+        width: 100%;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .btn-submit:hover {
+        background-color: #2e5e42;
+    }
+
+    /* Certificate Layout */
+    .cert-container {
+        display: none;
+        width: 800px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 40px 50px;
+        box-sizing: border-box;
+        border: 15px solid transparent;
+        border-image: url('https://www.transparenttextures.com/patterns/cubes.png') 30 round;
+        outline: 3px double #3e7d58;
+        outline-offset: -12px;
+        position: relative;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .cert-header {
+        text-align: center;
+        border-bottom: 2px solid #3e7d58;
+        padding-bottom: 15px;
+        position: relative;
+    }
+    .school-title {
+        color: #3e7d58;
+        font-size: 34px;
+        font-weight: bold;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+    .trust-title {
+        color: #d9534f;
+        font-size: 13px;
+        font-weight: bold;
+        margin: 4px 0;
+    }
+    .sub-details {
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.4;
+        color: #333;
+    }
+
+    .cert-body {
+        margin-top: 30px;
+        text-align: justify;
+        line-height: 2.2;
+        font-size: 18px;
+    }
+    .cert-title-box {
+        text-align: center;
+        margin: 25px 0;
+    }
+    .cert-title {
+        background-color: #3e7d58;
+        color: #fff;
+        padding: 6px 25px;
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        display: inline-block;
+        border-radius: 3px;
+    }
+    .fill-data {
+        font-weight: bold;
+        text-decoration: underline;
+        color: #000;
+        padding: 0 5px;
+    }
+
+    .cert-footer {
+        margin-top: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .action-buttons {
+        text-align: center;
+        margin-top: 25px;
+    }
+    .btn-print {
+        padding: 12px 30px;
+        background: #008000;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .btn-back {
+        padding: 12px 25px;
+        background: #666;
+        color: white;
+        border: none;
+        margin-left: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+
+    /* Print Specific Styles */
+    @media print {
+        @page {
+            size: letter;
+            margin: 10mm 15mm 10mm 15mm;
+        }
+        body {
+            background-color: #fff !important;
+            padding-top: 0 !important;
+        }
+        .top-header, #form-container, .action-buttons, .bottom-footer {
+            display: none !important;
+        }
+        .cert-container {
+            display: block !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+            box-sizing: border-box !important;
+            border: 2px solid #000 !important;
+            box-shadow: none !important;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="top-header">
+    <h1>BARSOI PUBLIC SCHOOL</h1>
+    <p>Nehar Nagar, Barsoi, Katihar - 854317</p>
+</div>
+
+<!-- Input Form Section -->
+<div id="form-container">
+    <h2>Bonafide Certificate Issue</h2>
+    <form id="certForm" onsubmit="generateCertificate(event)">
+        <div class="input-group">
+            <label>Student Name:</label>
+            <input type="text" id="in-name" placeholder="Enter Full Name" required>
+        </div>
+        <div class="input-group">
+            <label>Father's Name:</label>
+            <input type="text" id="in-father" placeholder="Enter Father's Name" required>
+        </div>
+        <div class="input-group">
+            <label>Class:</label>
+            <input type="text" id="in-class" placeholder="e.g. 7th" required>
+        </div>
+        <div class="input-group">
+            <label>Session:</label>
+            <input type="text" id="in-session" placeholder="e.g. 2026-27" value="2026-27" required>
+        </div>
+        <div class="input-group">
+            <label>Roll No:</label>
+            <input type="text" id="in-roll" placeholder="Enter Roll Number" required>
+        </div>
+        <div class="input-group">
+            <label>Date of Birth:</label>
+            <input type="text" id="in-dob" placeholder="DD/MM/YYYY" required>
+        </div>
+        <button type="submit" class="btn-submit">Generate Certificate</button>
+    </form>
+</div>
+
+<!-- Certificate Output Section -->
+<div id="certificate-output" class="cert-container">
+    <div class="cert-header">
+        <h1 class="school-title">BARSOI PUBLIC SCHOOL</h1>
+        <div class="trust-title">UNDER THE AEGIS OF ZAHIR EDUCATIONAL & WELFARE TRUST</div>
+        <div class="sub-details">
+            NEHAR NAGAR, BARSOI, KATIHAR, BIHAR - 854317<br>
+            Regd. No. SSA/070/14 | Curriculum – CBSE (NCERT)
+        </div>
+    </div>
+
+    <div class="cert-title-box">
+        <span class="cert-title">TO WHOM IT MAY CONCERN</span>
+    </div>
+
+    <div class="cert-body">
+        THIS IS TO CERTIFY THAT <span id="out-name" class="fill-data"></span>, 
+        SON/DAUGHTER OF <span id="out-father" class="fill-data"></span> 
+        IS STUDYING IN CLASS <span id="out-class" class="fill-data"></span> 
+        BEARING THE SESSION <span id="out-session" class="fill-data"></span>, 
+        WHOSE ROLL NO. IS <span id="out-roll" class="fill-data"></span>.<br><br>
+        HIS/HER BIRTHDATE AS RECORDED IN THE GENERAL REGISTER OF THE SCHOOL IS 
+        <span id="out-dob" class="fill-data"></span>.<br><br>
+        TO THE BEST OF MY KNOWLEDGE HE/SHE BEARS A GOOD MORAL CHARACTER.
+    </div>
+
+    <div class="cert-footer">
+        <div>
+            DATE: <span id="out-date" style="border-bottom: 1px dotted #000; padding: 0 10px;"></span>
+        </div>
+        <div>
+            PRINCIPAL
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn-print" onclick="window.print()">PRINT / SAVE PDF</button>
+        <button class="btn-back" onclick="resetForm()">BACK</button>
+    </div>
+</div>
+
+<script>
+    function generateCertificate(event) {
+        event.preventDefault();
+
+        // Getting Values
+        const name = document.getElementById('in-name').value;
+        const father = document.getElementById('in-father').value;
+        const cls = document.getElementById('in-class').value;
+        const session = document.getElementById('in-session').value;
+        const roll = document.getElementById('in-roll').value;
+        const dob = document.getElementById('in-dob').value;
+
+        // Setting Values to Certificate
+        document.getElementById('out-name').innerText = name.toUpperCase();
+        document.getElementById('out-father').innerText = father.toUpperCase();
+        document.getElementById('out-class').innerText = cls;
+        document.getElementById('out-session').innerText = session;
+        document.getElementById('out-roll').innerText = roll;
+        document.getElementById('out-dob').innerText = dob;
+
+        // Setting Current Date
+        const today = new Date();
+        const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+        document.getElementById('out-date').innerText = formattedDate;
+
+        // Show SweetAlert and Display Certificate
+        Swal.fire({
+            icon: 'success',
+            title: 'Certificate Generated!',
+            timer: 1000,
+            showConfirmButton: false
+        }).then(() => {
+            document.getElementById('form-container').style.display = 'none';
+            document.querySelector('.top-header').style.display = 'none';
+            document.body.style.backgroundColor = '#666';
+            document.getElementById('certificate-output').style.display = 'block';
+        });
+    }
+
+    function resetForm() {
+        document.getElementById('certificate-output').style.display = 'none';
+        document.getElementById('form-container').style.display = 'block';
+        document.querySelector('.top-header').style.display = 'block';
+        document.body.style.backgroundColor = 'var(--dark-bg)';
+    }
+</script>
+
+</body>
+</html>
