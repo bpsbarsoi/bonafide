@@ -5,24 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bonafide Certificate Generator - Barsoi Public School</title>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Great+Vibes&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
     :root {
-        --primary-color: #3e7d58;
-        --secondary-color: #FFA500;
+        --primary: #0f2b48;
+        --gold: #c59b27;
+        --gold-light: #f4e8c1;
         --dark-bg: #008000;
     }
 
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Montserrat', sans-serif;
         background-color: var(--dark-bg);
         margin: 0;
         padding: 20px 0;
         color: #333;
     }
 
-    /* Top Header */
     .top-header {
-        background-color: var(--secondary-color);
+        background-color: #FFA500;
         color: #000;
         text-align: center;
         padding: 15px;
@@ -33,31 +34,25 @@
     .top-header h1 { margin: 0; font-size: 26px; }
     .top-header p { margin: 5px 0 0 0; font-size: 14px; font-weight: bold; }
 
-    /* Input Form Styles */
+    /* Form Design */
     #form-container {
-        max-width: 550px;
+        max-width: 500px;
         margin: 0 auto;
         background: #fff;
         padding: 25px 30px;
         border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
     }
     #form-container h2 {
         text-align: center;
-        color: var(--primary-color);
+        color: var(--primary);
+        font-family: 'Cinzel', serif;
         margin-bottom: 20px;
-        border-bottom: 2px solid var(--primary-color);
+        border-bottom: 2px solid var(--gold);
         padding-bottom: 8px;
     }
-    .input-group {
-        margin-bottom: 15px;
-    }
-    .input-group label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
-        font-size: 14px;
-    }
+    .input-group { margin-bottom: 12px; }
+    .input-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 13px; }
     .input-group input {
         width: 100%;
         padding: 10px;
@@ -66,148 +61,176 @@
         box-sizing: border-box;
         font-size: 14px;
     }
-    .input-group input:focus {
-        border-color: var(--primary-color);
-        outline: none;
-    }
     .btn-submit {
         width: 100%;
-        background-color: var(--primary-color);
-        color: white;
+        background-color: var(--primary);
+        color: var(--gold-light);
         padding: 12px;
-        border: none;
+        border: 1px solid var(--gold);
         border-radius: 4px;
         font-size: 16px;
         font-weight: bold;
         cursor: pointer;
         transition: 0.3s;
+        margin-top: 10px;
     }
-    .btn-submit:hover {
-        background-color: #2e5e42;
-    }
+    .btn-submit:hover { background-color: #081a2d; }
 
-    /* Certificate Layout */
-    .cert-container {
+    /* Premium Certificate Design */
+    .cert-wrapper {
         display: none;
-        width: 800px;
+        width: 820px;
         margin: 20px auto;
         background: #fff;
-        padding: 40px 50px;
-        box-sizing: border-box;
-        border: 15px solid transparent;
-        border-image: url('https://www.transparenttextures.com/patterns/cubes.png') 30 round;
-        outline: 3px double #3e7d58;
-        outline-offset: -12px;
+        padding: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .cert-border {
+        border: 4px solid var(--gold);
+        padding: 5px;
         position: relative;
-        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .cert-inner-border {
+        border: 2px solid var(--primary);
+        padding: 30px 40px;
+        position: relative;
+        background: #fff;
+        overflow: hidden;
+    }
+
+    /* School Logo Watermark */
+    .cert-inner-border::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 350px;
+        height: 350px;
+        background-image: url('https://drive.google.com/thumbnail?id=18zW3xG-nsyBUrn2FdLLIzoUPaSZVura3&sz=w500');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        opacity: 0.06;
+        pointer-events: none;
     }
 
     .cert-header {
-        text-align: center;
-        border-bottom: 2px solid #3e7d58;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 2px double var(--gold);
         padding-bottom: 15px;
-        position: relative;
     }
+    .cert-logo { width: 90px; height: auto; }
+    .header-text { text-align: center; flex: 1; padding: 0 10px; }
+    
     .school-title {
-        color: #3e7d58;
-        font-size: 34px;
-        font-weight: bold;
+        font-family: 'Cinzel', serif;
+        color: var(--primary);
+        font-size: 30px;
+        font-weight: 800;
         margin: 0;
         letter-spacing: 1px;
     }
     .trust-title {
-        color: #d9534f;
-        font-size: 13px;
-        font-weight: bold;
-        margin: 4px 0;
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        margin: 3px 0;
     }
     .sub-details {
-        font-size: 12px;
-        font-weight: bold;
-        line-height: 1.4;
-        color: #333;
+        font-size: 11px;
+        font-weight: 600;
+        color: #444;
+        line-height: 1.3;
+    }
+
+    .cert-title-box { text-align: center; margin: 30px 0 25px 0; }
+    .cert-title {
+        font-family: 'Cinzel', serif;
+        color: var(--primary);
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        border-bottom: 2px solid var(--gold);
+        padding-bottom: 4px;
+        display: inline-block;
     }
 
     .cert-body {
-        margin-top: 30px;
+        font-family: 'Times New Roman', Times, serif;
+        line-height: 2.3;
+        font-size: 19px;
+        color: #111;
         text-align: justify;
-        line-height: 2.2;
-        font-size: 18px;
-    }
-    .cert-title-box {
-        text-align: center;
-        margin: 25px 0;
-    }
-    .cert-title {
-        background-color: #3e7d58;
-        color: #fff;
-        padding: 6px 25px;
-        font-size: 20px;
-        font-weight: bold;
-        letter-spacing: 2px;
-        display: inline-block;
-        border-radius: 3px;
+        position: relative;
+        z-index: 1;
     }
     .fill-data {
         font-weight: bold;
-        text-decoration: underline;
-        color: #000;
-        padding: 0 5px;
+        color: var(--primary);
+        border-bottom: 1px dashed var(--gold);
+        padding: 0 8px;
+        font-size: 20px;
+    }
+
+    /* Golden Badge Seal */
+    .golden-seal {
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90px;
+        height: 90px;
+        background: radial-gradient(circle, #ffe89c 0%, #c59b27 100%);
+        border-radius: 50%;
+        border: 2px dashed #7a5c0d;
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 9px;
+        font-weight: bold;
+        color: #4a3805;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        z-index: 2;
     }
 
     .cert-footer {
-        margin-top: 80px;
+        margin-top: 60px;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        font-size: 16px;
-        font-weight: bold;
+        font-weight: 700;
+        font-size: 14px;
+        position: relative;
+        z-index: 1;
     }
+    .sign-box { text-align: center; }
+    .sign-line { width: 160px; border-top: 1px solid #000; margin-bottom: 5px; }
 
-    .action-buttons {
-        text-align: center;
-        margin-top: 25px;
-    }
-    .btn-print {
-        padding: 12px 30px;
-        background: #008000;
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-        border-radius: 5px;
-        font-size: 15px;
-    }
-    .btn-back {
-        padding: 12px 25px;
-        background: #666;
-        color: white;
-        border: none;
-        margin-left: 10px;
-        cursor: pointer;
-        border-radius: 5px;
-        font-size: 15px;
-    }
+    .action-buttons { text-align: center; margin-top: 25px; }
+    .btn-print { padding: 12px 30px; background: #008000; color: white; border: none; cursor: pointer; font-weight: bold; border-radius: 5px; font-size: 15px; }
+    .btn-back { padding: 12px 25px; background: #666; color: white; border: none; margin-left: 10px; cursor: pointer; border-radius: 5px; font-size: 15px; }
 
-    /* Print Specific Styles */
     @media print {
         @page {
             size: letter;
-            margin: 10mm 15mm 10mm 15mm;
+            margin: 8mm 12mm 8mm 12mm;
         }
-        body {
-            background-color: #fff !important;
-            padding-top: 0 !important;
-        }
-        .top-header, #form-container, .action-buttons, .bottom-footer {
-            display: none !important;
-        }
-        .cert-container {
+        body { background-color: #fff !important; padding: 0 !important; }
+        .top-header, #form-container, .action-buttons { display: none !important; }
+        .cert-wrapper {
             display: block !important;
             width: 100% !important;
-            margin: 0 auto !important;
-            box-sizing: border-box !important;
-            border: 2px solid #000 !important;
+            margin: 0 !important;
+            padding: 0 !important;
             box-shadow: none !important;
         }
     }
@@ -220,10 +243,10 @@
     <p>Nehar Nagar, Barsoi, Katihar - 854317</p>
 </div>
 
-<!-- Input Form Section -->
+<!-- Form Section -->
 <div id="form-container">
     <h2>Bonafide Certificate Issue</h2>
-    <form id="certForm" onsubmit="generateCertificate(event)">
+    <form onsubmit="generateCertificate(event)">
         <div class="input-group">
             <label>Student Name:</label>
             <input type="text" id="in-name" placeholder="Enter Full Name" required>
@@ -238,7 +261,7 @@
         </div>
         <div class="input-group">
             <label>Session:</label>
-            <input type="text" id="in-session" placeholder="e.g. 2026-27" value="2026-27" required>
+            <input type="text" id="in-session" value="2026-27" required>
         </div>
         <div class="input-group">
             <label>Roll No:</label>
@@ -248,42 +271,57 @@
             <label>Date of Birth:</label>
             <input type="text" id="in-dob" placeholder="DD/MM/YYYY" required>
         </div>
-        <button type="submit" class="btn-submit">Generate Certificate</button>
+        <button type="submit" class="btn-submit">GENERATE CERTIFICATE</button>
     </form>
 </div>
 
-<!-- Certificate Output Section -->
-<div id="certificate-output" class="cert-container">
-    <div class="cert-header">
-        <h1 class="school-title">BARSOI PUBLIC SCHOOL</h1>
-        <div class="trust-title">UNDER THE AEGIS OF ZAHIR EDUCATIONAL & WELFARE TRUST</div>
-        <div class="sub-details">
-            NEHAR NAGAR, BARSOI, KATIHAR, BIHAR - 854317<br>
-            Regd. No. SSA/070/14 | Curriculum – CBSE (NCERT)
-        </div>
-    </div>
+<!-- Output Certificate -->
+<div id="certificate-output" class="cert-wrapper">
+    <div class="cert-border">
+        <div class="cert-inner-border">
+            
+            <div class="cert-header">
+                <img src="https://drive.google.com/thumbnail?id=18zW3xG-nsyBUrn2FdLLIzoUPaSZVura3&sz=w300" class="cert-logo">
+                <div class="header-text">
+                    <h1 class="school-title">BARSOI PUBLIC SCHOOL</h1>
+                    <div class="trust-title">UNDER THE AEGIS OF ZAHIR EDUCATIONAL & WELFARE TRUST</div>
+                    <div class="sub-details">
+                        NEHAR NAGAR, BARSOI, KATIHAR, BIHAR - 854317<br>
+                        Regd. No. SSA/070/14 &nbsp;|&nbsp; Curriculum – CBSE (NCERT)
+                    </div>
+                </div>
+                <div style="width: 90px;"></div>
+            </div>
 
-    <div class="cert-title-box">
-        <span class="cert-title">TO WHOM IT MAY CONCERN</span>
-    </div>
+            <div class="cert-title-box">
+                <span class="cert-title">TO WHOM IT MAY CONCERN</span>
+            </div>
 
-    <div class="cert-body">
-        THIS IS TO CERTIFY THAT <span id="out-name" class="fill-data"></span>, 
-        SON/DAUGHTER OF <span id="out-father" class="fill-data"></span> 
-        IS STUDYING IN CLASS <span id="out-class" class="fill-data"></span> 
-        BEARING THE SESSION <span id="out-session" class="fill-data"></span>, 
-        WHOSE ROLL NO. IS <span id="out-roll" class="fill-data"></span>.<br><br>
-        HIS/HER BIRTHDATE AS RECORDED IN THE GENERAL REGISTER OF THE SCHOOL IS 
-        <span id="out-dob" class="fill-data"></span>.<br><br>
-        TO THE BEST OF MY KNOWLEDGE HE/SHE BEARS A GOOD MORAL CHARACTER.
-    </div>
+            <div class="cert-body">
+                This is to certify that <span id="out-name" class="fill-data"></span>, 
+                Son/Daughter of <span id="out-father" class="fill-data"></span>, 
+                is a bonafide student of Class <span id="out-class" class="fill-data"></span> 
+                bearing Session <span id="out-session" class="fill-data"></span> 
+                with Roll No. <span id="out-roll" class="fill-data"></span>.<br><br>
+                His/Her Date of Birth as recorded in the General Register of the school is 
+                <span id="out-dob" class="fill-data"></span>.<br><br>
+                To the best of my knowledge, he/she bears a good moral character.
+            </div>
 
-    <div class="cert-footer">
-        <div>
-            DATE: <span id="out-date" style="border-bottom: 1px dotted #000; padding: 0 10px;"></span>
-        </div>
-        <div>
-            PRINCIPAL
+            <div class="golden-seal">
+                Official<br>School<br>Seal
+            </div>
+
+            <div class="cert-footer">
+                <div>
+                    DATE: <span id="out-date" style="border-bottom: 1px dotted #000; padding: 0 10px;"></span>
+                </div>
+                <div class="sign-box">
+                    <div class="sign-line"></div>
+                    PRINCIPAL
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -294,40 +332,27 @@
 </div>
 
 <script>
-    function generateCertificate(event) {
-        event.preventDefault();
+    function generateCertificate(e) {
+        e.preventDefault();
+        document.getElementById('out-name').innerText = document.getElementById('in-name').value.toUpperCase();
+        document.getElementById('out-father').innerText = document.getElementById('in-father').value.toUpperCase();
+        document.getElementById('out-class').innerText = document.getElementById('in-class').value;
+        document.getElementById('out-session').innerText = document.getElementById('in-session').value;
+        document.getElementById('out-roll').innerText = document.getElementById('in-roll').value;
+        document.getElementById('out-dob').innerText = document.getElementById('in-dob').value;
 
-        // Getting Values
-        const name = document.getElementById('in-name').value;
-        const father = document.getElementById('in-father').value;
-        const cls = document.getElementById('in-class').value;
-        const session = document.getElementById('in-session').value;
-        const roll = document.getElementById('in-roll').value;
-        const dob = document.getElementById('in-dob').value;
-
-        // Setting Values to Certificate
-        document.getElementById('out-name').innerText = name.toUpperCase();
-        document.getElementById('out-father').innerText = father.toUpperCase();
-        document.getElementById('out-class').innerText = cls;
-        document.getElementById('out-session').innerText = session;
-        document.getElementById('out-roll').innerText = roll;
-        document.getElementById('out-dob').innerText = dob;
-
-        // Setting Current Date
         const today = new Date();
-        const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
-        document.getElementById('out-date').innerText = formattedDate;
+        document.getElementById('out-date').innerText = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
 
-        // Show SweetAlert and Display Certificate
         Swal.fire({
             icon: 'success',
-            title: 'Certificate Generated!',
-            timer: 1000,
+            title: 'Certificate Ready!',
+            timer: 800,
             showConfirmButton: false
         }).then(() => {
             document.getElementById('form-container').style.display = 'none';
             document.querySelector('.top-header').style.display = 'none';
-            document.body.style.backgroundColor = '#666';
+            document.body.style.backgroundColor = '#444';
             document.getElementById('certificate-output').style.display = 'block';
         });
     }
@@ -339,6 +364,5 @@
         document.body.style.backgroundColor = 'var(--dark-bg)';
     }
 </script>
-
 </body>
 </html>
