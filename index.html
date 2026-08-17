@@ -204,20 +204,21 @@
             size: letter;
             margin: 8mm 12mm 8mm 12mm;
         }
-        * {
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }
-        body { background-color: #fff !important; padding: 0 !important; }
-        .top-header, #form-container, .action-buttons { display: none !important; }
-        .cert-wrapper {
-            display: block !important;
-            width: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            box-shadow: none !important;
-        }
+    body { 
+        background-color: #fff !important; 
+        padding-top: 0 !important;
     }
+    .top-header, #search-box, .bottom-footer, .print-btn-div { 
+        display: none !important; 
+    } 
+    .m-container { 
+        display: block !important; 
+        width: 100% !important; 
+        margin: 0 auto !important; 
+        box-sizing: border-box !important;
+        border: 2px solid #000 !important; 
+    }
+}
 </style>
 </head>
 <body>
