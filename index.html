@@ -194,31 +194,26 @@
     .sign-box { text-align: center; }
     .sign-line { width: 160px; border-top: 1px solid #000; margin-bottom: 5px; }
 
-    .action-buttons { text-align: center; margin-top: 25px; }
-    .btn-print { padding: 12px 30px; background: #008000; color: white; border: none; cursor: pointer; font-weight: bold; border-radius: 5px; font-size: 15px; }
-    .btn-back { padding: 12px 25px; background: #666; color: white; border: none; margin-left: 10px; cursor: pointer; border-radius: 5px; font-size: 15px; }
-
     /* Print & PDF Export Fixes */
     @media print {
         @page {
             size: letter;
             margin: 8mm 12mm 8mm 12mm;
         }
-    body { 
-        background-color: #fff !important; 
-        padding-top: 0 !important;
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        body { background-color: #fff !important; padding: 0 !important; }
+        .top-header, #form-container, .print-btn-div { display: none !important; }
+        .cert-wrapper {
+            display: block !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
     }
-    .top-header, #search-box, .bottom-footer, .print-btn-div { 
-        display: none !important; 
-    } 
-    .m-container { 
-        display: block !important; 
-        width: 100% !important; 
-        margin: 0 auto !important; 
-        box-sizing: border-box !important;
-        border: 2px solid #000 !important; 
-    }
-}
 </style>
 </head>
 <body>
@@ -306,9 +301,9 @@
         </div>
     </div>
 
-    <div class="action-buttons">
-        <button class="btn-print" onclick="window.print()">PRINT / SAVE PDF</button>
-        <button class="btn-back" onclick="resetForm()">BACK</button>
+    <div style="margin-top:30px; text-align:center;" class="print-btn-div">
+        <button onclick="if(window.AndroidPrint){ AndroidPrint.triggerPrint(); } else { window.print(); }" style="padding:12px 30px; background:#008000; color:white; border:none; cursor:pointer; font-weight:bold; border-radius:5px;">PRINT / SAVE PDF</button>
+        <button onclick="location.reload()" style="padding:10px 20px; background:#666; color:white; border:none; margin-left:10px; cursor:pointer; border-radius:4px;">BACK</button>
     </div>
 </div>
 
@@ -336,13 +331,6 @@
             document.body.style.backgroundColor = '#444';
             document.getElementById('certificate-output').style.display = 'block';
         });
-    }
-
-    function resetForm() {
-        document.getElementById('certificate-output').style.display = 'none';
-        document.getElementById('form-container').style.display = 'block';
-        document.querySelector('.top-header').style.display = 'block';
-        document.body.style.backgroundColor = 'var(--dark-bg)';
     }
 </script>
 </body>
